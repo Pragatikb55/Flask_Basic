@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Jinja2 Advanced</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .project-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .project-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .project-tech {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: #c6f6d5;
+        }
+
+        .status-in-progress {
+            background: #feebc8;
+        }
+
+        .status-planned {
+            background: #e9d8fd;
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #edf2f7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/skills">Skills</a>
+            <a href="/projects">Projects</a>
+            <a href="/grades">Grades</a>
+        </nav>
+
+        <h1>My Projects</h1>
+        <p>This page loops through a <strong>list of dictionaries</strong>.</p>
+
+        <!-- PROJECT CARDS -->
+        {% for project in projects %}
+        <div class="project-card">
+            <div class="project-name">{{ project.name }}</div>
+            <div class="project-tech">Tech: {{ project.tech }}</div>
+
+            {% if project.status == 'Completed' %}
+            <span class="status status-completed">{{ project.status }}</span>
+            {% elif project.status == 'In Progress' %}
+            <span class="status status-in-progress">{{ project.status }}</span>
+            {% else %}
+            <span class="status status-planned">{{ project.status }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <h2>Data Structure (Python)</h2>
+        <div class="code-example">
+            project_list = [<br>
+            &nbsp;&nbsp;{'name': 'Personal Website', 'status': 'Completed', 'tech': 'HTML/CSS'},<br>
+            &nbsp;&nbsp;{'name': 'Flask Blog', 'status': 'In Progress', 'tech': 'Python/Flask'},<br>
+            &nbsp;&nbsp;{'name': 'Weather App', 'status': 'Planned', 'tech': 'JavaScript'}<br>
+            ]
+        </div>
+
+        <h2>Accessing Dictionary Values (Jinja Syntax)</h2>
+        <div class="code-example">
+            &#123;&#123; project.name &#125;&#125;<br>
+            &#123;&#123; project.status &#125;&#125;<br>
+            &#123;&#123; project.tech &#125;&#125;
+        </div>
+
+        <h2>Projects Table</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Technology</th>
+                <th>Status</th>
+            </tr>
+
+            {% for project in projects %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.tech }}</td>
+                <td>{{ project.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <p><strong>Total Projects:</strong> {{ projects | length }}</p>
+
+    </div>
+
+</body>
+
+</html>

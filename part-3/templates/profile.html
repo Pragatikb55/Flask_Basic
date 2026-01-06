@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Jinja2 Variables</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #2b6cb0;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .profile-card h2 {
+            margin-top: 0;
+        }
+
+        .profile-item {
+            margin: 10px 0;
+        }
+
+        .badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .badge-success {
+            background: #48bb78;
+        }
+
+        .badge-warning {
+            background: #ed8936;
+        }
+
+        ul {
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/skills">Skills</a>
+            <a href="/projects">Projects</a>
+            <a href="/grades">Grades</a>
+        </nav>
+
+        <h1>User Profile</h1>
+        <p>This page demonstrates Jinja2 variables, loops, and conditionals.</p>
+
+        <!-- PROFILE DETAILS -->
+        <div class="profile-card">
+            <h2>{{ name }}</h2>
+
+            <div class="profile-item">
+                <strong>Age:</strong> {{ age }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Course:</strong> {{ course }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Email:</strong> {{ email }}
+            </div>
+
+            <div class="profile-item">
+                <strong>City:</strong> {{ city }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Status:</strong>
+                {% if is_enrolled %}
+                <span class="badge badge-success">Enrolled</span>
+                {% else %}
+                <span class="badge badge-warning">Not Enrolled</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- SKILLS LIST -->
+        <h2>Skills</h2>
+        <ul>
+            {% for skill in skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="profile-item">
+        <strong>Status:</strong>
+
+        {% if is_enrolled %}
+        <span class="badge badge-success">Enrolled</span>
+        {% else %}
+        <span class="badge badge-warning">Not Enrolled</span>
+        {% endif %}
+    </div>
+
+
+</body>
+
+</html>
