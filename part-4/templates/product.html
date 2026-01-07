@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+        nav a {
+            margin-right: 15px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .product-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .product-card h1 {
+            margin: 0 0 20px 0;
+            font-size: 36px;
+        }
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin-top: 10px;
+        }
+        .product-id {
+            background: #4299e1;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .action-buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 12px 24px;
+            background: #4299e1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #3182ce;
+        }
+        .btn-secondary {
+            background: #48bb78;
+        }
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/links">URL Builder</a>
+            <a href="/product/1">Product</a>
+            <a href="/category/electronics/product/1">Category Product</a>
+        </nav>
+
+        <span class="product-id">Product ID: {{ product_id }}</span>
+
+        <div class="product-card">
+            <h1>{{ product.name }}</h1>
+            <div class="price">${{ product.price }}</div>
+        </div>
+
+        <div class="info-box">
+            <strong>Exercise 4.1 Complete!</strong>
+            <p>This page demonstrates a product route with:</p>
+            <ul>
+                <li>Dynamic route: <code>/product/&lt;int:product_id&gt;</code></li>
+                <li>Product dictionary lookup</li>
+                <li>404 error handling for non-existent products</li>
+            </ul>
+        </div>
+
+        <h2>Product Details</h2>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr style="background: #edf2f7;">
+                <th style="padding: 12px; text-align: left;">Field</th>
+                <th style="padding: 12px; text-align: left;">Value</th>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">Product ID</td>
+                <td style="padding: 12px;"><strong>{{ product_id }}</strong></td>
+            </tr>
+            <tr style="background: #f7fafc;">
+                <td style="padding: 12px;">Name</td>
+                <td style="padding: 12px;"><strong>{{ product.name }}</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">Price</td>
+                <td style="padding: 12px;"><strong>${{ product.price }}</strong></td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <a href="/products" class="btn">Back to Products</a>
+            <a href="/category/electronics/product/{{ product_id }}" class="btn btn-secondary">View in Electronics Category</a>
+        </div>
+
+        <h3>Try Other Products</h3>
+        <ul>
+            <li><a href="/product/1">Product 1: Laptop</a></li>
+            <li><a href="/product/2">Product 2: Smartphone</a></li>
+            <li><a href="/product/3">Product 3: Tablet</a></li>
+            <li><a href="/product/99">Product 99 (Not Found)</a></li>
+        </ul>
+    </div>
+</body>
+</html>

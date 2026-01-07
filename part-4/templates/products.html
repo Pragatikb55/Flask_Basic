@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+        nav a {
+            margin-right: 15px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .product-list { margin: 20px 0; }
+        .product-item { background: #ebf8ff; border: 2px solid #90cdf4; border-radius: 8px; padding: 20px; margin: 15px 0; }
+        .product-item h2 { margin: 0 0 10px 0; color: #2b6cb0; }
+        .product-item a { display: inline-block; margin-top: 10px; padding: 8px 16px; background: #4299e1; color: white; text-decoration: none; border-radius: 5px; }
+        .product-item a:hover { background: #3182ce; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/links">URL Builder</a>
+            <a href="/product/1">Product</a>
+            <a href="/category/electronics/product/1">Category Product</a>
+        </nav>
+
+        <h1>Products</h1>
+        <div class="product-list">
+            {% for pid, product in products.items() %}
+            <div class="product-item">
+                <h2>{{ product.name }}</h2>
+                <p>Price: ${{ product.price }}</p>
+                <a href="/product/{{ pid }}">View Product</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

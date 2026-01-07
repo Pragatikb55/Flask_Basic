@@ -32,6 +32,49 @@
             font-weight: bold;
         }
         nav a:hover { color: #2b6cb0; }
+        
+        /* Search Section - NEW! */
+        .search-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .search-section h2 {
+            color: white;
+            margin-top: 0;
+            font-size: 28px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .search-form input[type="text"] {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+        }
+        .search-form button {
+            padding: 12px 30px;
+            font-size: 16px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .search-form button:hover {
+            background: #38a169;
+        }
+        
         .route-demo {
             background: #ebf8ff;
             border: 2px solid #90cdf4;
@@ -80,13 +123,25 @@
 <body>
     <div class="container">
         <nav>
-            <a href="/">Home</a>
+             <a href="/">Home</a>
             <a href="/about/">About</a>
             <a href="/links">URL Builder</a>
+            <a href="/product/1">Product</a>
+            <a href="/category/electronics/product/1">Category Product</a>
         </nav>
 
         <h1>Dynamic Routes in Flask</h1>
         <p>Learn how to capture values from URLs using <code>&lt;variable&gt;</code> syntax!</p>
+
+        <!-- ⭐ NEW: SEARCH SECTION (Exercise 4.3) ⭐ -->
+        <div class="search-section">
+            <h2>🔍 Search Feature (Exercise 4.3)</h2>
+            <p style="color: white; margin-bottom: 20px;">Try searching for anything!</p>
+            <form action="/search-redirect" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Search for laptop, python, anything..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
 
         <!-- User Profile Demo -->
         <div class="route-demo">
@@ -128,6 +183,27 @@
             <a href="/user/Bob/post/2">Bob's Post 2</a>
         </div>
 
+        <!-- Product Demo -->
+        <div class="route-demo">
+            <h3>4. Product Route (Exercise 4.1)</h3>
+            <p>Route: <code>/product/&lt;int:product_id&gt;</code></p>
+            <p><strong>Try it:</strong></p>
+            <a href="/product/1">Laptop</a>
+            <a href="/product/2">Smartphone</a>
+            <a href="/product/3">Tablet</a>
+        </div>
+
+        <!-- Search Demo -->
+        <div class="route-demo">
+            <h3>5. Search Route (Exercise 4.3)</h3>
+            <p>Route: <code>/search/&lt;query&gt;</code></p>
+            <p><strong>Try it:</strong></p>
+            <a href="/search/laptop">Search: laptop</a>
+            <a href="/search/smartphone">Search: smartphone</a>
+            <a href="/search/python%20flask">Search: python flask</a>
+            <p style="margin-top: 10px; color: #4a5568;">💡 <em>Or use the search form above!</em></p>
+        </div>
+
         <div class="try-it">
             <strong>Try Your Own!</strong>
             <p>Type in your browser's address bar:</p>
@@ -135,7 +211,11 @@
                 <li><code>localhost:5000/user/YourName</code></li>
                 <li><code>localhost:5000/post/42</code></li>
                 <li><code>localhost:5000/user/YourName/post/1</code></li>
+                <li><code>localhost:5000/products</code> <em>(see all products)</em></li>
+                <li><code>localhost:5000/product/1</code> <em>(view product details)</em></li>
+                <li><code>localhost:5000/search/anything</code> <em>(search for anything)</em></li>
             </ul>
+            <p><strong>✨ Or use the pink search box at the top of this page!</strong></p>
         </div>
     </div>
 </body>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search: {{ query }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+        nav a {
+            margin-right: 15px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .search-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .search-header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .search-query {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .search-form {
+            background: #ebf8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .search-form input[type="text"] {
+            width: calc(100% - 120px);
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #90cdf4;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .search-form button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .search-form button:hover {
+            background: #3182ce;
+        }
+        .info-box {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .search-results {
+            margin: 30px 0;
+        }
+        .result-item {
+            background: #f7fafc;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4299e1;
+        }
+        .result-item h3 {
+            margin: 0 0 10px 0;
+            color: #2d3748;
+        }
+        .examples {
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #6b46c1;
+        }
+        .examples ul {
+            list-style: none;
+            padding: 0;
+        }
+        .examples li {
+            margin: 8px 0;
+        }
+        .examples a {
+            color: #805ad5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .examples a:hover {
+            color: #6b46c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/links">URL Builder</a>
+            <a href="/product/1">Product</a>
+            <a href="/category/electronics/product/1">Category Product</a>
+        </nav>
+
+        <div class="search-header">
+            <h1>Search Results for:</h1>
+            <div class="search-query">"{{ query }}"</div>
+        </div>
+
+        <!-- Search Form (Bonus for Exercise 4.3) -->
+        <div class="search-form">
+            <form action="/search-redirect" method="get">
+                <input type="text" name="q" placeholder="Enter your search query..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="info-box">
+            <strong>Exercise 4.3 Complete!</strong>
+            <p>This page demonstrates a search route with:</p>
+            <ul>
+                <li>Dynamic route: <code>/search/&lt;query&gt;</code></li>
+                <li>Search form that redirects to this route</li>
+                <li>Display of the captured search query</li>
+            </ul>
+        </div>
+
+        <!-- Mock Search Results -->
+        <div class="search-results">
+            <h2>Results (Demo)</h2>
+            <p>In a real application, you would search a database for items matching "<strong>{{ query }}</strong>"</p>
+            
+            <div class="result-item">
+                <h3>Sample Result 1</h3>
+                <p>This is a demo search result for your query: <strong>{{ query }}</strong></p>
+            </div>
+            
+            <div class="result-item">
+                <h3>Sample Result 2</h3>
+                <p>Another demo result matching: <strong>{{ query }}</strong></p>
+            </div>
+            
+            <div class="result-item">
+                <h3>Sample Result 3</h3>
+                <p>Found this item related to: <strong>{{ query }}</strong></p>
+            </div>
+        </div>
+
+        <!-- Implementation Details -->
+        <h2>How It Works</h2>
+        <div class="code-block">
+@app.route('/search/&lt;query&gt;')<br>
+def search(query):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return render_template('search.html', query=query)
+        </div>
+
+        <div class="examples">
+            <h3>Try Different Searches</h3>
+            <ul>
+                <li><a href="/search/laptop">Search for "laptop"</a></li>
+                <li><a href="/search/smartphone">Search for "smartphone"</a></li>
+                <li><a href="/search/python%20flask">Search for "python flask"</a></li>
+                <li><a href="/search/programming">Search for "programming"</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

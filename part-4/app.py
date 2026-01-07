@@ -7,7 +7,7 @@ How to Run:
 3. Try different URLs like /user/YourName or /post/123
 """
 
-from flask import Flask, render_template, url_for
+from flask import Flask, abort, render_template, url_for, request, redirect
 
 app = Flask(__name__)
 
@@ -43,6 +43,80 @@ def about():
     return render_template('about.html')
 
 
+# =============================================================================
+# EXERCISE 4.1: Product page ✅ COMPLETE
+# =============================================================================
+@app.route('/product/<int:product_id>')
+def product_page(product_id):
+    products = {
+        1: {'name': 'Laptop', 'price': 999.99},
+        2: {'name': 'Smartphone', 'price': 499.99},
+        3: {'name': 'Tablet', 'price': 299.99},
+    }
+    product = products.get(product_id)
+    if product:
+        return render_template('product.html', product_id=product_id, product=product)
+    else:
+        abort(404, description="Product Not Found")
+
+
+# =============================================================================
+# EXERCISE 4.2: Category and product route ✅ COMPLETE
+# =============================================================================
+@app.route('/category/<category_name>/product/<int:product_id>')
+def category_product(category_name, product_id):
+    return render_template(
+        'category_product.html',
+        category=category_name,
+        product_id=product_id
+    )
+
+
+# =============================================================================
+# EXERCISE 4.3: Search route ✅ COMPLETE
+# =============================================================================
+@app.route('/search/<query>')
+def search(query):
+    """
+    Main search route - displays search results
+    Example: /search/laptop
+    """
+    return render_template('search.html', query=query)
+
+
+# THIS IS THE MISSING PIECE! ⭐
+@app.route('/search-redirect')
+def search_redirect():
+    """
+    BONUS for Exercise 4.3: Handles search form submissions
+    
+    How it works:
+    1. Form in search.html submits to: /search-redirect?q=laptop
+    2. This function extracts the 'q' parameter
+    3. Redirects to: /search/laptop
+    4. The search() function above handles the display
+    """
+    query = request.args.get('q', '')  # Get the 'q' parameter from URL
+    if query:
+        return redirect(url_for('search', query=query))
+    else:
+        return redirect(url_for('home'))
+
+
+# =============================================================================
+# Supporting routes
+# =============================================================================
+@app.route('/products')
+def products():
+    """Product listing route for browsing all products"""
+    products = {
+        1: {'name': 'Laptop', 'price': 999.99},
+        2: {'name': 'Smartphone', 'price': 499.99},
+        3: {'name': 'Tablet', 'price': 299.99},
+    }
+    return render_template('products.html', products=products)
+
+
 @app.route('/links')  # Demonstrates url_for() - generates URLs dynamically (better than hardcoding!)
 def show_links():
     links = {
@@ -52,6 +126,9 @@ def show_links():
         'user_bob': url_for('user_profile', username='Bob'),
         'post_1': url_for('show_post', post_id=1),
         'post_2': url_for('show_post', post_id=2),
+        'product_1': url_for('product_page', product_id=1),
+        'product_2': url_for('product_page', product_id=2),
+        'search_laptop': url_for('search', query='laptop'),
     }
     return render_template('links.html', links=links)
 
