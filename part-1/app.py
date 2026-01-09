@@ -14,7 +14,7 @@ app = Flask(__name__)  # Create Flask app instance, __name__ tells Flask where t
 
 @app.route('/')  # Decorator that maps URL '/' (home page) to this function
 def home():
-    return "Hello Flask! Welcome to my first website"  # This text displays in the browser
+    return "Hello Pragati"  # This text displays in the browser
 
 @app.route('/about')
 def about():

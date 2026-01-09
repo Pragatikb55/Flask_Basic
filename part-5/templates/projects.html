@@ -22,10 +22,13 @@
 
         <!-- Tech tags using a nested loop -->
         <div class="tech-tags">
-            {% for tech in project.tech %}
-                <span class="tech-tag">{{ tech }}</span>
-            {% endfor %}
-        </div>
+        {% for tech in project.tech %}
+            <a href="/skill/{{ tech }}" class="tech-tag">{{ tech }}</a>
+                {{ tech }}
+            </a>
+        {% endfor %}
+    </div>
+
 
         <!-- Status badge with conditional styling -->
         {% if project.status == 'Completed' %}

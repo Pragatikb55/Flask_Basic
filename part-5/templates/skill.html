@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+Projects Using {{ skill_name }} | {{ info.name }}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Projects Using "{{ skill_name }}"</h2>
+    <p style="margin-top: 10px;">
+        Showing all projects where <strong>{{ skill_name }}</strong> is used.
+    </p>
+</div>
+
+{% if projects %}
+    <div class="projects-grid">
+        {% for project in projects %}
+            <div class="project-card">
+                <h3>{{ project.name }}</h3>
+
+                {% if project.status == 'Completed' %}
+                    <span class="status status-completed">{{ project.status }}</span>
+                {% elif project.status == 'In Progress' %}
+                    <span class="status status-in-progress">{{ project.status }}</span>
+                {% endif %}
+
+                <p style="margin-top: 10px;">
+                    {{ project.description }}
+                </p>
+
+                <div class="tech-tags" style="margin-top: 10px;">
+                    {% for tech in project.tech %}
+                        <span class="tech-tag">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <a href="{{ url_for('project_detail', project_id=project.id) }}"
+                       class="btn btn-primary">
+                        View Project
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="card">
+        <p>No projects found using <strong>{{ skill_name }}</strong>.</p>
+    </div>
+{% endif %}
+
+<div class="card">
+    <a href="{{ url_for('projects') }}" class="btn btn-secondary">
+        Back to Projects
+    </a>
+</div>
+{% endblock %}
+

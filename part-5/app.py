@@ -9,6 +9,7 @@ How to Run:
 3. Open browser: http://localhost:5000
 """
 
+from multiprocessing.util import info
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -18,32 +19,64 @@ app = Flask(__name__)
 # =============================================================================
 
 PERSONAL_INFO = {
-    'name': 'Your Name',
+    'name': 'Pragati Kshirsagar',
     'title': 'Web Developer',
     'bio': 'A passionate developer learning Flask and web development.',
-    'email': 'your.email@example.com',
-    'github': 'https://github.com/yourusername',
-    'linkedin': 'https://linkedin.com/in/yourusername',
+    'email': 'pragatik194@example.com',
+    'github': 'https://github.com/Pragatikb55',
 }
 
 SKILLS = [
-    {'name': 'Python', 'level': 80},
-    {'name': 'HTML/CSS', 'level': 75},
-    {'name': 'Flask', 'level': 60},
-    {'name': 'JavaScript', 'level': 50},
-    {'name': 'SQL', 'level': 45},
+    {'name': 'Python', 'level': 85, 'slug': 'python'},
+    {'name': 'HTML/CSS', 'level': 80, 'slug': 'html-css'},
+    {'name': 'Flask', 'level': 75, 'slug': 'flask'},
+    {'name': 'JavaScript', 'level': 30, 'slug': 'javascript'},
+    {'name': 'SQL', 'level': 50, 'slug': 'sql'},
+    {'name': 'DBMS', 'level': 80, 'slug': 'dbms'},
 ]
 
 PROJECTS = [
     {'id': 1, 'name': 'Personal Website', 'description': 'A Flask-powered personal portfolio website.', 'tech': ['Python', 'Flask', 'HTML', 'CSS'], 'status': 'Completed'},
-    {'id': 2, 'name': 'Todo App', 'description': 'A simple task management application.', 'tech': ['Python', 'Flask', 'SQLite'], 'status': 'In Progress'},
-    {'id': 3, 'name': 'Weather Dashboard', 'description': 'Display weather data from an API.', 'tech': ['Python', 'Flask', 'API'], 'status': 'Planned'},
+    {'id': 2, 'name': 'News agregated bot', 'description': 'A Telegram bot that collects and delivers news from multiple RSS sources based on user preferences.', 'tech':['Python', 'python-telegram-bot', 'SQLite', 'RSS'], 'status': 'Completed'},
+    {'id': 3, 'name': 'Catchyour vehicle', 'description':'A vehicle tracking and management system for monitoring vehicle details and status.', 'tech': ['Python', 'Flask', 'HTML', 'CSS', 'SQLite'], 'status': 'In Progress'},
 ]
 
 
 # =============================================================================
 # ROUTES
 # =============================================================================
+
+
+# Blog posts data
+BLOG_POSTS = [
+    {
+        "title": "Building My Personal Website with Flask",
+        "author": "Pragati Kshirsagar",
+        "content": (
+            "This project is a Flask-powered personal portfolio website. "
+            "It includes sections like About Me, Skills, Projects, and Contact. "
+            "I learned how to use Jinja2 templates, dynamic routing, and CSS styling."
+        )
+    },
+    {
+        "title": "News Aggregated Telegram Bot Using Python",
+        "author": "Pragati Kshirsagar",
+        "content": (
+            "This project is a Telegram bot that collects news from multiple RSS sources. "
+            "Users can choose categories, and news is delivered automatically. "
+            "The bot is built using Python, python-telegram-bot, and SQLite."
+        )
+    },
+    {
+        "title": "Catch Your Vehicle – Vehicle Management System",
+        "author": "Pragati Kshirsagar",
+        "content": (
+            "Catch Your Vehicle is a vehicle tracking and management system. "
+            "It helps in storing and monitoring vehicle details efficiently. "
+            "This project strengthened my understanding of Flask, databases, and backend logic."
+        )
+    }
+]
 
 @app.route('/')
 def home():
@@ -73,6 +106,29 @@ def project_detail(project_id):
 @app.route('/contact')
 def contact():
     return render_template('contact.html', info=PERSONAL_INFO)
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', info=PERSONAL_INFO, posts=BLOG_POSTS)
+
+@app.route('/skill/<slug>')
+def skill_projects(slug):
+    filtered_projects = [
+        project for project in PROJECTS
+        if any(
+            slug.replace('-', '').lower() in tech.replace('/', '').lower()
+            for tech in project['tech']
+        )
+    ]
+
+    skill_name = slug.replace('-', '/').upper()
+
+    return render_template(
+        'skill.html',
+        info=PERSONAL_INFO,
+        skill_name=skill_name,
+        projects=filtered_projects
+    )
 
 
 if __name__ == '__main__':

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Blog | {{ info.name }}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>My Blog</h2>
+    <p style="font-size: 18px; margin-bottom: 20px;">
+        Here I share learnings and experiences from my projects and development journey.
+    </p>
+</div>
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="card">
+            <h2 style="border: none; padding: 0;">{{ post.title }}</h2>
+
+            <p class="author" style="margin-bottom: 15px;">
+                By <strong>{{ post.author }}</strong>
+            </p>
+
+            <p style="font-size: 17px; line-height: 1.6;">
+                {{ post.content }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="info-box">
+        <strong>Dynamic Content</strong>
+        <p>
+            This blog page is rendered dynamically using Flask and a Jinja2
+            <code>{% raw %}{% for post in posts %}{% endraw %}</code> loop.
+        </p>
+    </div>
+
+{% else %}
+    <div class="card">
+        <h2>No Blog Posts Available</h2>
+        <p>Blog posts will appear here once they are added.</p>
+    </div>
+
+    <div class="info-box warning">
+        <strong>Empty State Handling</strong>
+        <p>
+            This section demonstrates how Jinja2 handles empty data safely.
+        </p>
+    </div>
+{% endif %}
+{% endblock %}
+

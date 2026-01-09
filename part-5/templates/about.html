@@ -16,30 +16,26 @@
 <!-- Skills Section -->
 <div class="card">
     <h2>My Skills</h2>
-    <p style="margin-bottom: 20px;">Here are my technical skills with proficiency levels:</p>
+    <p style="margin-bottom: 20px;">
+        Here are my technical skills with proficiency levels:
+    </p>
 
     {% for skill in skills %}
     <div class="skill-item">
         <div class="skill-name">
-            <span>{{ skill.name }}</span>
+            <a href="{{ url_for('skill_projects', slug=skill.slug) }}">
+                {{ skill.name }}
+            </a>
             <span>{{ skill.level }}%</span>
         </div>
+
         <div class="skill-bar">
-            <div class="skill-progress" style="width: {{ skill.level }}%;"></div>
+            <div class="skill-progress" data-width="{{ skill.level }}"></div>
         </div>
     </div>
     {% endfor %}
-
-    <div class="info-box" style="margin-top: 20px;">
-        <strong>For Loop Magic:</strong>
-        <p>The skills above are rendered using a Jinja2 for loop:</p>
-        <code style="display: block; margin-top: 10px; background: #edf2f7; padding: 10px; border-radius: 5px;">
-            {&percnt; for skill in skills &percnt;}<br>
-            &nbsp;&nbsp;{{ skill.name }} - {{ skill.level }}&percnt;<br>
-            {&percnt; endfor &percnt;}
-        </code>
-    </div>
 </div>
+
 
 <!-- What I'm Learning -->
 <div class="card">

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Add Task - To-Do List{% endblock %}
+
+{% block content %}
+    <h2>Add New Task</h2>
+    
+    <form method="POST" action="{{ url_for('add_task') }}" style="max-width: 600px; margin: 30px auto;">
+        <div style="margin-bottom: 20px;">
+            <label for="title" style="display: block; margin-bottom: 5px; font-weight: bold;">Task Title:</label>
+            <input type="text" id="title" name="title" required 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="description" style="display: block; margin-bottom: 5px; font-weight: bold;">Description:</label>
+            <textarea id="description" name="description" rows="4"
+                      style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"></textarea>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label for="status" style="display: block; margin-bottom: 5px; font-weight: bold;">Status:</label>
+                <select id="status" name="status" required 
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="priority" style="display: block; margin-bottom: 5px; font-weight: bold;">Priority:</label>
+                <select id="priority" name="priority" required 
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 30px;">
+            <label for="due_date" style="display: block; margin-bottom: 5px; font-weight: bold;">Due Date:</label>
+            <input type="date" id="due_date" name="due_date" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" class="btn" style="flex: 1;">Add Task</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary" style="flex: 1; text-align: center;">Cancel</a>
+        </div>
+    </form>
+    
+    <div style="margin-top: 40px; background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
+        <h3>Quick Tips:</h3>
+        <ul style="margin-top: 10px; padding-left: 20px;">
+            <li>Use clear, descriptive task titles</li>
+            <li>Set realistic due dates</li>
+            <li>Prioritize tasks based on importance and urgency</li>
+            <li>Update status as you make progress</li>
+        </ul>
+    </div>
+{% endblock %}
